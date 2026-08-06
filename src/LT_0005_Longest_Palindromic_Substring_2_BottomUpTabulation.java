@@ -38,4 +38,10 @@ class LT_0005_Longest_Palindromic_Substring_2_BottomUpTabulation {
 
         return s.substring(start, start + bestLen);
     }
+
+    public static void main(String[] args) {
+        LT_0005_Longest_Palindromic_Substring_2_BottomUpTabulation sol = new LT_0005_Longest_Palindromic_Substring_2_BottomUpTabulation();
+        System.out.println(sol.longestPalindrome("babad")); // expected: "bab" (or "aba")
+        System.out.println(sol.longestPalindrome("cbbd")); // expected: "bb"
+    }
 }

@@ -31,4 +31,10 @@ class LT_0033_Search_in_Rotated_Sorted_Array {
 
         return -1;
     }
+
+    public static void main(String[] args) {
+        LT_0033_Search_in_Rotated_Sorted_Array sol = new LT_0033_Search_in_Rotated_Sorted_Array();
+        System.out.println(sol.search(new int[]{4, 5, 6, 7, 0, 1, 2}, 0)); // expected: 4
+        System.out.println(sol.search(new int[]{4, 5, 6, 7, 0, 1, 2}, 3)); // expected: -1
+    }
 }

@@ -72,4 +72,11 @@ class LT_0030_Substring_With_Concatenation_Of_All_Words {
 
         return result;
     }
+
+    public static void main(String[] args) {
+        LT_0030_Substring_With_Concatenation_Of_All_Words sol = new LT_0030_Substring_With_Concatenation_Of_All_Words();
+        System.out.println(sol.findSubstring("barfoothefoobarman", new String[]{"foo", "bar"})); // expected: [0, 9]
+        System.out.println(sol.findSubstring("wordgoodgoodgoodbestword", new String[]{"word", "good", "best", "word"})); // expected: []
+        System.out.println(sol.findSubstring("barfoofoobarthefoobarman", new String[]{"bar", "foo", "the"})); // expected: [6, 9, 12]
+    }
 }

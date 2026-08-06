@@ -21,4 +21,10 @@ class LT_0162_Find_Peak_Element {
 
         return lo;
     }
+
+    public static void main(String[] args) {
+        LT_0162_Find_Peak_Element sol = new LT_0162_Find_Peak_Element();
+        System.out.println(sol.findPeakElement(new int[]{1, 2, 3, 1})); // expected: 2
+        System.out.println(sol.findPeakElement(new int[]{1, 2, 1, 3, 5, 6, 4})); // expected: 1 or 5
+    }
 }

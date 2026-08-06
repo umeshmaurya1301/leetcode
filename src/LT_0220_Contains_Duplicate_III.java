@@ -17,4 +17,10 @@ class LT_0220_Contains_Duplicate_III {
 
         return false;
     }
+
+    public static void main(String[] args) {
+        LT_0220_Contains_Duplicate_III sol = new LT_0220_Contains_Duplicate_III();
+        System.out.println(sol.containsNearbyAlmostDuplicate(new int[]{1, 2, 3, 1}, 3, 0)); // expected: true
+        System.out.println(sol.containsNearbyAlmostDuplicate(new int[]{1, 5, 9, 1, 5, 9}, 2, 3)); // expected: false
+    }
 }

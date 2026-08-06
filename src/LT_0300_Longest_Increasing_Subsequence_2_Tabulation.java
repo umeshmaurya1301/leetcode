@@ -18,4 +18,11 @@ class LT_0300_Longest_Increasing_Subsequence_2_Tabulation {
         }
         return best;
     }
+
+    public static void main(String[] args) {
+        LT_0300_Longest_Increasing_Subsequence_2_Tabulation sol = new LT_0300_Longest_Increasing_Subsequence_2_Tabulation();
+        System.out.println(sol.lengthOfLIS(new int[]{10, 9, 2, 5, 3, 7, 101, 18})); // expected: 4
+        System.out.println(sol.lengthOfLIS(new int[]{0, 1, 0, 3, 2, 3})); // expected: 4
+        System.out.println(sol.lengthOfLIS(new int[]{7, 7, 7, 7, 7, 7, 7})); // expected: 1
+    }
 }

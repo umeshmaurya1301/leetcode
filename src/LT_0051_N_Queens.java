@@ -60,4 +60,10 @@ class LT_0051_N_Queens {
             diag2[d2] = false;
         }
     }
+
+    public static void main(String[] args) {
+        LT_0051_N_Queens sol = new LT_0051_N_Queens();
+        System.out.println(sol.solveNQueens(4));
+        // expected: [[.Q.., ...Q, Q..., ..Q.], [..Q., Q..., ...Q, .Q..]]
+    }
 }

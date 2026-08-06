@@ -35,4 +35,11 @@ class LT_0041_First_Missing_Positive {
         nums[i] = nums[j];
         nums[j] = temp;
     }
+
+    public static void main(String[] args) {
+        LT_0041_First_Missing_Positive sol = new LT_0041_First_Missing_Positive();
+        System.out.println(sol.firstMissingPositive(new int[]{1, 2, 0})); // expected: 3
+        System.out.println(sol.firstMissingPositive(new int[]{3, 4, -1, 1})); // expected: 2
+        System.out.println(sol.firstMissingPositive(new int[]{7, 8, 9, 11, 12})); // expected: 1
+    }
 }

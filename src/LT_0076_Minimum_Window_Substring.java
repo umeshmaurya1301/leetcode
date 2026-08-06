@@ -59,4 +59,11 @@ class LT_0076_Minimum_Window_Substring {
                 ? ""
                 : s.substring(start, start + minLen);
     }
+
+    public static void main(String[] args) {
+        LT_0076_Minimum_Window_Substring sol = new LT_0076_Minimum_Window_Substring();
+        System.out.println(sol.minWindow("ADOBECODEBANC", "ABC")); // expected: "BANC"
+        System.out.println(sol.minWindow("a", "a")); // expected: "a"
+        System.out.println(sol.minWindow("a", "aa")); // expected: ""
+    }
 }

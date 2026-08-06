@@ -78,4 +78,25 @@ class LT_0146_LRU_Cache {
 
         nextNode.prev = node;
     }
+
+    public static void main(String[] args) {
+        // ["LRUCache","put","put","get","put","get","put","get","get","get"]
+        // [[2],[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]
+        // expected: [null, null, null, 1, null, -1, null, -1, 3, 4]
+        LT_0146_LRU_Cache cache = new LT_0146_LRU_Cache(2);
+        System.out.println("null");              // LRUCache(2)
+        cache.put(1, 1);
+        System.out.println("null");              // put(1, 1)
+        cache.put(2, 2);
+        System.out.println("null");              // put(2, 2)
+        System.out.println(cache.get(1));         // expected: 1
+        cache.put(3, 3);
+        System.out.println("null");              // put(3, 3) -> evicts key 2
+        System.out.println(cache.get(2));         // expected: -1
+        cache.put(4, 4);
+        System.out.println("null");              // put(4, 4) -> evicts key 1
+        System.out.println(cache.get(1));         // expected: -1
+        System.out.println(cache.get(3));         // expected: 3
+        System.out.println(cache.get(4));         // expected: 4
+    }
 }

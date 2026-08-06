@@ -37,4 +37,10 @@ class LT_0004_Median_of_Two_Sorted_Arrays {
 
         return 0.0;
     }
+
+    public static void main(String[] args) {
+        LT_0004_Median_of_Two_Sorted_Arrays sol = new LT_0004_Median_of_Two_Sorted_Arrays();
+        System.out.println(sol.findMedianSortedArrays(new int[]{1, 3}, new int[]{2})); // expected: 2.00000
+        System.out.println(sol.findMedianSortedArrays(new int[]{1, 2}, new int[]{3, 4})); // expected: 2.50000
+    }
 }

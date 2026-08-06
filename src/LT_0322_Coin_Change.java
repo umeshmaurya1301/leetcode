@@ -27,4 +27,11 @@ class LT_0322_Coin_Change {
         return dp[amount] = minCoins;
     }
 
+    public static void main(String[] args) {
+        LT_0322_Coin_Change sol = new LT_0322_Coin_Change();
+        System.out.println(sol.coinChange(new int[]{1, 2, 5}, 11)); // expected: 3
+        System.out.println(sol.coinChange(new int[]{2}, 3)); // expected: -1
+        System.out.println(sol.coinChange(new int[]{1}, 0)); // expected: 0
+    }
+
 }

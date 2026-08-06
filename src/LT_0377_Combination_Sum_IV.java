@@ -21,4 +21,10 @@ class LT_0377_Combination_Sum_IV {
         
         return dp[target] = ways;
     }
+
+    public static void main(String[] args) {
+        LT_0377_Combination_Sum_IV sol = new LT_0377_Combination_Sum_IV();
+        System.out.println(sol.combinationSum4(new int[]{1, 2, 3}, 4)); // expected: 7
+        System.out.println(sol.combinationSum4(new int[]{9}, 3)); // expected: 0
+    }
 }

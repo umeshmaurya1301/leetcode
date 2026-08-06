@@ -19,6 +19,12 @@ class LT_0049_Group_Anagrams_2_FrequencyCountKey {
             map.put(key, values);
         }
 
-        return new ArrayList<>(map.values());        
+        return new ArrayList<>(map.values());
+    }
+
+    public static void main(String[] args) {
+        LT_0049_Group_Anagrams_2_FrequencyCountKey sol = new LT_0049_Group_Anagrams_2_FrequencyCountKey();
+        System.out.println(sol.groupAnagrams(new String[]{"eat", "tea", "tan", "ate", "nat", "bat"})); // expected: [[eat, tea, ate], [tan, nat], [bat]]
+        System.out.println(sol.groupAnagrams(new String[]{""})); // expected: [[]]
     }
 }

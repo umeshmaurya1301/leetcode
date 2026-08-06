@@ -15,4 +15,10 @@ class LT_0121_Best_Time_to_Buy_and_Sell_Stock {
 
         return max;
     }
+
+    public static void main(String[] args) {
+        LT_0121_Best_Time_to_Buy_and_Sell_Stock sol = new LT_0121_Best_Time_to_Buy_and_Sell_Stock();
+        System.out.println(sol.maxProfit(new int[]{7, 1, 5, 3, 6, 4})); // expected: 5
+        System.out.println(sol.maxProfit(new int[]{7, 6, 4, 3, 1})); // expected: 0
+    }
 }

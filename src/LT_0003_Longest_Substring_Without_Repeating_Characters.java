@@ -20,4 +20,9 @@ class LT_0003_Longest_Substring_Without_Repeating_Characters {
 
         return bestLen;
     }
+
+    public static void main(String[] args) {
+        LT_0003_Longest_Substring_Without_Repeating_Characters sol = new LT_0003_Longest_Substring_Without_Repeating_Characters();
+        System.out.println(sol.lengthOfLongestSubstring("abcabcbb")); // expected: 3
+    }
 }

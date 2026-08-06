@@ -35,4 +35,10 @@ class LT_0005_Longest_Palindromic_Substring_3_ExpandAroundCenter {
 
         return right - left - 1;
     }
+
+    public static void main(String[] args) {
+        LT_0005_Longest_Palindromic_Substring_3_ExpandAroundCenter sol = new LT_0005_Longest_Palindromic_Substring_3_ExpandAroundCenter();
+        System.out.println(sol.longestPalindrome("babad")); // expected: "bab" (or "aba")
+        System.out.println(sol.longestPalindrome("cbbd")); // expected: "bb"
+    }
 }

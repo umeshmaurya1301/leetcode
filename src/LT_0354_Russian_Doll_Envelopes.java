@@ -53,4 +53,10 @@ class LT_0354_Russian_Doll_Envelopes {
 
         return tail.size();
     }
+
+    public static void main(String[] args) {
+        LT_0354_Russian_Doll_Envelopes sol = new LT_0354_Russian_Doll_Envelopes();
+        System.out.println(sol.maxEnvelopes(new int[][]{{5, 4}, {6, 4}, {6, 7}, {2, 3}})); // expected: 3
+        System.out.println(sol.maxEnvelopes(new int[][]{{1, 1}, {1, 1}, {1, 1}})); // expected: 1
+    }
 }

@@ -33,4 +33,10 @@ class LT_0005_Longest_Palindromic_Substring_1_TopDownMemoization {
 
         return memo[i][j];
     }
+
+    public static void main(String[] args) {
+        LT_0005_Longest_Palindromic_Substring_1_TopDownMemoization sol = new LT_0005_Longest_Palindromic_Substring_1_TopDownMemoization();
+        System.out.println(sol.longestPalindrome("babad")); // expected: "bab" (or "aba")
+        System.out.println(sol.longestPalindrome("cbbd")); // expected: "bb"
+    }
 }

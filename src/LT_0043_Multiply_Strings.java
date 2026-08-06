@@ -34,4 +34,11 @@ class LT_0043_Multiply_Strings {
 
         return sb.toString();
     }
+
+    public static void main(String[] args) {
+        LT_0043_Multiply_Strings sol = new LT_0043_Multiply_Strings();
+        System.out.println(sol.multiply("2", "3")); // expected: "6"
+        System.out.println(sol.multiply("123", "456")); // expected: "56088"
+        System.out.println(sol.multiply("0", "523")); // expected: "0"
+    }
 }

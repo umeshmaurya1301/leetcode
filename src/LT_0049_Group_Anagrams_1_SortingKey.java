@@ -21,4 +21,10 @@ class LT_0049_Group_Anagrams_1_SortingKey {
 
         return new ArrayList<>(map.values());
     }
+
+    public static void main(String[] args) {
+        LT_0049_Group_Anagrams_1_SortingKey sol = new LT_0049_Group_Anagrams_1_SortingKey();
+        System.out.println(sol.groupAnagrams(new String[]{"eat", "tea", "tan", "ate", "nat", "bat"})); // expected: [[eat, tea, ate], [tan, nat], [bat]]
+        System.out.println(sol.groupAnagrams(new String[]{""})); // expected: [[]]
+    }
 }
