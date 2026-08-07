@@ -18,5 +18,11 @@ class LT_0974_Subarray_Sums_Divisible_by_K_1_PrefixSumHashMap {
         }
 
         return count;
-    }    
+    }
+
+    public static void main(String[] args) {
+        LT_0974_Subarray_Sums_Divisible_by_K_1_PrefixSumHashMap sol = new LT_0974_Subarray_Sums_Divisible_by_K_1_PrefixSumHashMap();
+        System.out.println(sol.subarraysDivByK(new int[]{4, 5, 0, -2, -3, 1}, 5)); // expected: 7
+        System.out.println(sol.subarraysDivByK(new int[]{5}, 5)); // expected: 1
+    }
 }

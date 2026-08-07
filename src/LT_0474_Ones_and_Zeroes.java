@@ -37,4 +37,10 @@ class LT_0474_Ones_and_Zeroes {
         }
         return new int[]{zeros, ones};
     }
+
+    public static void main(String[] args) {
+        LT_0474_Ones_and_Zeroes sol = new LT_0474_Ones_and_Zeroes();
+        System.out.println(sol.findMaxForm(new String[]{"10", "0001", "111001", "1", "0"}, 5, 3)); // expected: 4
+        System.out.println(sol.findMaxForm(new String[]{"10", "0", "1"}, 1, 1)); // expected: 2
+    }
 }

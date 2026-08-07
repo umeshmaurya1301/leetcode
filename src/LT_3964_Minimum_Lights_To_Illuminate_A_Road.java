@@ -52,4 +52,10 @@ class LT_3964_Minimum_Lights_To_Illuminate_A_Road {
             }
         }
     }
+
+    public static void main(String[] args) {
+        LT_3964_Minimum_Lights_To_Illuminate_A_Road sol = new LT_3964_Minimum_Lights_To_Illuminate_A_Road();
+        System.out.println(sol.minLights(new int[]{0, 0, 0, 0})); // expected: 2
+        System.out.println(sol.minLights(new int[]{0, 0, 0, 2, 0})); // expected: 1
+    }
 }

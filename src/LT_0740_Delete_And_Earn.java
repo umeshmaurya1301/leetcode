@@ -34,4 +34,10 @@ class LT_0740_Delete_And_Earn {
         memo[i] = Math.max(take, skip);
         return memo[i];
     }
+
+    public static void main(String[] args) {
+        LT_0740_Delete_And_Earn sol = new LT_0740_Delete_And_Earn();
+        System.out.println(sol.deleteAndEarn(new int[]{3, 4, 2})); // expected: 6
+        System.out.println(sol.deleteAndEarn(new int[]{2, 2, 3, 3, 3, 4})); // expected: 9
+    }
 }

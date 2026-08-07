@@ -35,4 +35,10 @@ class LT_0454_4Sum_II {
 
         return count;
     }
+
+    public static void main(String[] args) {
+        LT_0454_4Sum_II sol = new LT_0454_4Sum_II();
+        System.out.println(sol.fourSumCount(new int[]{1, 2}, new int[]{-2, -1}, new int[]{-1, 2}, new int[]{0, 2})); // expected: 2
+        System.out.println(sol.fourSumCount(new int[]{0}, new int[]{0}, new int[]{0}, new int[]{0})); // expected: 1
+    }
 }

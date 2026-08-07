@@ -38,4 +38,11 @@ class LT_2981_Find_Longest_Special_Substring_That_Occurs_Thrice_I {
 
         return maxLen;
     }
+
+    public static void main(String[] args) {
+        LT_2981_Find_Longest_Special_Substring_That_Occurs_Thrice_I sol = new LT_2981_Find_Longest_Special_Substring_That_Occurs_Thrice_I();
+        System.out.println(sol.maximumLength("aaaa")); // expected: 2
+        System.out.println(sol.maximumLength("abcdef")); // expected: -1
+        System.out.println(sol.maximumLength("abcaba")); // expected: 1
+    }
 }

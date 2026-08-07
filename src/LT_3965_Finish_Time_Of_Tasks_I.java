@@ -32,4 +32,11 @@ class LT_3965_Finish_Time_Of_Tasks_I {
         long ownDuration = (latest - earliest) + baseTime[node];
         return latest + ownDuration;
     }
+
+    public static void main(String[] args) {
+        LT_3965_Finish_Time_Of_Tasks_I sol = new LT_3965_Finish_Time_Of_Tasks_I();
+        System.out.println(sol.finishTime(3, new int[][]{{0, 1}, {1, 2}}, new int[]{9, 5, 3})); // expected: 17
+        System.out.println(sol.finishTime(3, new int[][]{{0, 1}, {0, 2}}, new int[]{4, 7, 6})); // expected: 12
+        System.out.println(sol.finishTime(4, new int[][]{{0, 1}, {0, 2}, {2, 3}}, new int[]{5, 8, 2, 1})); // expected: 18
+    }
 }

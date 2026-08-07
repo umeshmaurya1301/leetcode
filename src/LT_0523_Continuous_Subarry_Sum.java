@@ -24,4 +24,11 @@ class LT_0523_Continuous_Subarry_Sum {
 
         return false;
     }
+
+    public static void main(String[] args) {
+        LT_0523_Continuous_Subarry_Sum sol = new LT_0523_Continuous_Subarry_Sum();
+        System.out.println(sol.checkSubarraySum(new int[]{23, 2, 4, 6, 7}, 6)); // expected: true
+        System.out.println(sol.checkSubarraySum(new int[]{23, 2, 6, 4, 7}, 6)); // expected: true
+        System.out.println(sol.checkSubarraySum(new int[]{23, 2, 6, 4, 7}, 13)); // expected: false
+    }
 }

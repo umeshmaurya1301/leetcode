@@ -32,4 +32,10 @@ class LT_992_Subaary_with_K_different_Integers {
 
      return count;
  }
+
+    public static void main(String[] args) {
+        LT_992_Subaary_with_K_different_Integers sol = new LT_992_Subaary_with_K_different_Integers();
+        System.out.println(sol.subarraysWithKDistinct(new int[]{1, 2, 1, 2, 3}, 2)); // expected: 7
+        System.out.println(sol.subarraysWithKDistinct(new int[]{1, 2, 1, 3, 4}, 3)); // expected: 3
+    }
 }

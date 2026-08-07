@@ -17,4 +17,10 @@ class LT_3968_Maximum_Manhattan_Distance_After_All_Moves {
         
         return Math.abs(x) + Math.abs(y) + underscore;
     }
+
+    public static void main(String[] args) {
+        LT_3968_Maximum_Manhattan_Distance_After_All_Moves sol = new LT_3968_Maximum_Manhattan_Distance_After_All_Moves();
+        System.out.println(sol.maxDistance("L_D_")); // expected: 4
+        System.out.println(sol.maxDistance("U_R")); // expected: 3
+    }
 }

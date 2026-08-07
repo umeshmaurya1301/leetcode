@@ -25,4 +25,10 @@ class LT_2401_Longest_Nice_SubArray {
 
         return maxLen;
     }
+
+    public static void main(String[] args) {
+        LT_2401_Longest_Nice_SubArray sol = new LT_2401_Longest_Nice_SubArray();
+        System.out.println(sol.longestNiceSubarray(new int[]{1, 3, 8, 48, 10})); // expected: 3
+        System.out.println(sol.longestNiceSubarray(new int[]{3, 1, 5, 11, 13})); // expected: 1
+    }
 }

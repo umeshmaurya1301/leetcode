@@ -28,4 +28,11 @@ class LT_0904_Fruit_Into_Baskets {
 
         return max;
     }
+
+    public static void main(String[] args) {
+        LT_0904_Fruit_Into_Baskets sol = new LT_0904_Fruit_Into_Baskets();
+        System.out.println(sol.totalFruit(new int[]{1, 2, 1})); // expected: 3
+        System.out.println(sol.totalFruit(new int[]{0, 1, 2, 2})); // expected: 3
+        System.out.println(sol.totalFruit(new int[]{1, 2, 3, 2, 2})); // expected: 4
+    }
 }

@@ -29,4 +29,9 @@ class LT_1711_Count_Good_Meals {
 
         return (int)(count % MOD);
     }
+
+    public static void main(String[] args) {
+        LT_1711_Count_Good_Meals sol = new LT_1711_Count_Good_Meals();
+        System.out.println(sol.countPairs(new int[]{1, 3, 5, 7, 9})); // expected: 4
+    }
 }

@@ -23,4 +23,10 @@ class LT_1695_Maximum_Erasure_Value_2_SlidingWindowSet {
 
         return max;
     }
+
+    public static void main(String[] args) {
+        LT_1695_Maximum_Erasure_Value_2_SlidingWindowSet sol = new LT_1695_Maximum_Erasure_Value_2_SlidingWindowSet();
+        System.out.println(sol.maximumUniqueSubarray(new int[]{4, 2, 4, 5, 6})); // expected: 17
+        System.out.println(sol.maximumUniqueSubarray(new int[]{5, 2, 1, 2, 5, 2, 1, 2, 5})); // expected: 8
+    }
 }

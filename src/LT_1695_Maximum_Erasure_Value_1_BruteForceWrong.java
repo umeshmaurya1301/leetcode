@@ -34,4 +34,10 @@ class LT_1695_Maximum_Erasure_Value_1_BruteForceWrong {
         }
         return globalMax;
     }
+
+    public static void main(String[] args) {
+        LT_1695_Maximum_Erasure_Value_1_BruteForceWrong sol = new LT_1695_Maximum_Erasure_Value_1_BruteForceWrong();
+        System.out.println(sol.maximumUniqueSubarray(new int[]{4, 2, 4, 5, 6})); // expected: 17
+        System.out.println(sol.maximumUniqueSubarray(new int[]{5, 2, 1, 2, 5, 2, 1, 2, 5})); // expected: 8
+    }
 }

@@ -17,4 +17,11 @@ class LT_0518_Coin_Change_II {
         if (idx+1<coins.length) tempCount += dfs(coins, dp, amount, idx+1);
         return dp[idx][amount] = tempCount;
     }
+
+    public static void main(String[] args) {
+        LT_0518_Coin_Change_II sol = new LT_0518_Coin_Change_II();
+        System.out.println(sol.change(5, new int[]{1, 2, 5})); // expected: 4
+        System.out.println(sol.change(3, new int[]{2})); // expected: 0
+        System.out.println(sol.change(10, new int[]{10})); // expected: 1
+    }
 }

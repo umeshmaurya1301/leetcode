@@ -10,13 +10,14 @@ javac -d out src/*.java
 
 Problems with more than one approach documented in the notes (e.g. brute force vs. optimal) get one file per approach, suffixed `_1_…`, `_2_…`, etc.
 
-## Problems (43)
+## Problems (44)
 
 | # | Problem | Difficulty | Solution(s) |
 |---|---|---|---|
 | 3 | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | Medium | [`LT_0003_Longest_Substring_Without_Repeating_Characters.java`](src/LT_0003_Longest_Substring_Without_Repeating_Characters.java) |
 | 4 | [Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/) | Hard | [`LT_0004_Median_of_Two_Sorted_Arrays.java`](src/LT_0004_Median_of_Two_Sorted_Arrays.java) |
 | 5 | [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/) | Medium | [`LT_0005_Longest_Palindromic_Substring_1_TopDownMemoization.java`](src/LT_0005_Longest_Palindromic_Substring_1_TopDownMemoization.java)<br>[`LT_0005_Longest_Palindromic_Substring_2_BottomUpTabulation.java`](src/LT_0005_Longest_Palindromic_Substring_2_BottomUpTabulation.java)<br>[`LT_0005_Longest_Palindromic_Substring_3_ExpandAroundCenter.java`](src/LT_0005_Longest_Palindromic_Substring_3_ExpandAroundCenter.java) |
+| 17 | [Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/) | Medium | [`LT_0017_Letter_Combinations_of_a_Phone_Number.java`](src/LT_0017_Letter_Combinations_of_a_Phone_Number.java) |
 | 30 | [Substring with Concatenation of All Words](https://leetcode.com/problems/substring-with-concatenation-of-all-words/) | Hard | [`LT_0030_Substring_With_Concatenation_Of_All_Words.java`](src/LT_0030_Substring_With_Concatenation_Of_All_Words.java) |
 | 33 | [Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/) | Medium | [`LT_0033_Search_in_Rotated_Sorted_Array.java`](src/LT_0033_Search_in_Rotated_Sorted_Array.java) |
 | 36 | [Valid Sudoku](https://leetcode.com/problems/valid-sudoku/) | Medium | [`LT_0036_Valid_Sudoku.java`](src/LT_0036_Valid_Sudoku.java) |

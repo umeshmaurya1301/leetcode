@@ -17,4 +17,11 @@ class LT_0435_Non_Overlapping_Intervals {
 
         return removed;
     }
+
+    public static void main(String[] args) {
+        LT_0435_Non_Overlapping_Intervals sol = new LT_0435_Non_Overlapping_Intervals();
+        System.out.println(sol.eraseOverlapIntervals(new int[][]{{1, 2}, {2, 3}, {3, 4}, {1, 3}})); // expected: 1
+        System.out.println(sol.eraseOverlapIntervals(new int[][]{{1, 2}, {1, 2}, {1, 2}})); // expected: 2
+        System.out.println(sol.eraseOverlapIntervals(new int[][]{{1, 2}, {2, 3}})); // expected: 0
+    }
 }

@@ -22,4 +22,10 @@ class LT_152_Maximum_Product_SubArray {
 
         return answer;
     }
+
+    public static void main(String[] args) {
+        LT_152_Maximum_Product_SubArray sol = new LT_152_Maximum_Product_SubArray();
+        System.out.println(sol.maxProduct(new int[]{2, 3, -2, 4})); // expected: 6
+        System.out.println(sol.maxProduct(new int[]{-2, 0, -1})); // expected: 0
+    }
 }

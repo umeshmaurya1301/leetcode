@@ -29,4 +29,10 @@ class LT_3932_Count_K_th_Roots_in_a_Range {
         }
         return result;
     }
+
+    public static void main(String[] args) {
+        LT_3932_Count_K_th_Roots_in_a_Range sol = new LT_3932_Count_K_th_Roots_in_a_Range();
+        System.out.println(sol.countKthRoots(1, 9, 3)); // expected: 2
+        System.out.println(sol.countKthRoots(8, 30, 2)); // expected: 3
+    }
 }
