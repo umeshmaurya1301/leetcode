@@ -1,0 +1,512 @@
+LT_122 Best time to buy and sell stocks 2
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/
+
+You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
+
+On each day, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can sell and buy the stock multiple times on the same day, ensuring you never hold more than one share of the stock.
+
+Find and return the maximum profit you can achieve.
+
+
+
+Example 1:
+
+Input: prices = [7,1,5,3,6,4]
+Output: 7
+Explanation: Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.
+Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.
+Total profit is 4 + 3 = 7.
+Example 2:
+
+Input: prices = [1,2,3,4,5]
+Output: 4
+Explanation: Buy on day 1 (price = 1) and sell on day 5 (price = 5), profit = 5-1 = 4.
+Total profit is 4.
+Example 3:
+
+Input: prices = [7,6,4,3,1]
+Output: 0
+Explanation: There is no way to make a positive profit, so we never buy the stock to achieve the maximum profit of 0.
+
+
+Constraints:
+
+1 <= prices.length <= 3 * 104
+0 <= prices[i] <= 104
+
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int profit = 0;
+
+        for (int i = 1; i < prices.length; i++) {
+            // Buy yesterday and sell today if profitable
+            if (prices[i] > prices[i - 1]) {
+                profit += prices[i] - prices[i - 1];
+            }
+        }
+
+        return profit;
+    }
+}
+
+
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+
+LT 123 Best Time to Buy and Sell Stocks 3
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/description/
+
+
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+Find the maximum profit you can achieve. You may complete at most two transactions.
+
+Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+
+
+
+Example 1:
+
+Input: prices = [3,3,5,0,0,3,1,4]
+Output: 6
+Explanation: Buy on day 4 (price = 0) and sell on day 6 (price = 3), profit = 3-0 = 3.
+Then buy on day 7 (price = 1) and sell on day 8 (price = 4), profit = 4-1 = 3.
+Example 2:
+
+Input: prices = [1,2,3,4,5]
+Output: 4
+Explanation: Buy on day 1 (price = 1) and sell on day 5 (price = 5), profit = 5-1 = 4.
+Note that you cannot buy on day 1, buy on day 2 and sell them later, as you are engaging multiple transactions at the same time. You must sell before buying again.
+Example 3:
+
+Input: prices = [7,6,4,3,1]
+Output: 0
+Explanation: In this case, no transaction is done, i.e. max profit = 0.
+
+
+Constraints:
+
+1 <= prices.length <= 105
+0 <= prices[i] <= 105
+
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int n = prices.length;
+        Integer[][][] dp = new Integer[n][2][2];
+        dfs (prices, dp, 0, 1, 1);
+        // System.out.println(Arrays.deepToString(dp));
+        return dp[0][1][1];
+    }
+
+    private int dfs (int[] prices, Integer[][][] dp, int idx, int canBuy, int txnLeft) {
+        // System.out.println("idx: "+idx);
+        // System.out.println("canBuy: "+canBuy);
+        // System.out.println("txnLeft: "+txnLeft);
+        if (txnLeft<0 ||  idx==prices.length) return 0;
+        if (dp[idx][canBuy][txnLeft]!=null) return dp[idx][canBuy][txnLeft];
+
+        int profit = 0;
+        if (canBuy == 1) {
+            int buy = -prices[idx] + dfs (prices, dp, idx+1, 0, txnLeft);
+            int skip = dfs (prices, dp, idx+1, 1, txnLeft);
+            profit = Math.max (buy, skip);
+        } else {
+            int sell = +prices[idx] + dfs (prices, dp, idx+1, 1, txnLeft-1);
+            int skip = dfs(prices, dp, idx+1, 0, txnLeft);
+            profit = Math.max(sell, skip);
+        }
+
+        return dp[idx][canBuy][txnLeft] = profit;
+    }
+}
+
+
+
+
+---------------------------------------------------
+LT 188 Best Time to Buy and Sell Stocks 4
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/description/
+
+You are given an integer array prices where prices[i] is the price of a given stock on the ith day, and an integer k.
+
+Find the maximum profit you can achieve. You may complete at most k transactions: i.e. you may buy at most k times and sell at most k times.
+
+Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+
+
+
+Example 1:
+
+Input: k = 2, prices = [2,4,1]
+Output: 2
+Explanation: Buy on day 1 (price = 2) and sell on day 2 (price = 4), profit = 4-2 = 2.
+Example 2:
+
+Input: k = 2, prices = [3,2,6,5,0,3]
+Output: 7
+Explanation: Buy on day 2 (price = 2) and sell on day 3 (price = 6), profit = 6-2 = 4. Then buy on day 5 (price = 0) and sell on day 6 (price = 3), profit = 3-0 = 3.
+
+
+Constraints:
+
+1 <= k <= 100
+1 <= prices.length <= 1000
+0 <= prices[i] <= 1000
+
+
+
+class Solution {
+    public int maxProfit(int k, int[] prices) {
+        int n = prices.length;
+        Integer[][][] dp = new Integer[n][2][k];
+        dfs (prices, dp, 0, 1, k-1);
+        return dp[0][1][k-1];
+    }
+
+    private int dfs (int[] prices, Integer[][][] dp, int idx, int canBuy, int txnLeft) {
+        if (txnLeft<0 ||  idx==prices.length) return 0;
+        if (dp[idx][canBuy][txnLeft]!=null) return dp[idx][canBuy][txnLeft];
+
+        int profit = 0;
+        if (canBuy == 1) {
+            int buy = -prices[idx] + dfs (prices, dp, idx+1, 0, txnLeft);
+            int skip = dfs (prices, dp, idx+1, 1, txnLeft);
+            profit = Math.max (buy, skip);
+        } else {
+            int sell = +prices[idx] + dfs (prices, dp, idx+1, 1, txnLeft-1);
+            int skip = dfs(prices, dp, idx+1, 0, txnLeft);
+            profit = Math.max(sell, skip);
+        }
+
+        return dp[idx][canBuy][txnLeft] = profit;
+    }
+}
+
+
+--------------------------------------------------
+LT 309 Best time to buy and sell stock with cooldown
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/description/
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+Find the maximum profit you can achieve. You may complete as many transactions as you like (i.e., buy one and sell one share of the stock multiple times) with the following restrictions:
+
+After you sell your stock, you cannot buy stock on the next day (i.e., cooldown one day).
+Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+
+
+
+Example 1:
+
+Input: prices = [1,2,3,0,2]
+Output: 3
+Explanation: transactions = [buy, sell, cooldown, buy, sell]
+Example 2:
+
+Input: prices = [1]
+Output: 0
+
+
+Constraints:
+
+1 <= prices.length <= 5000
+0 <= prices[i] <= 1000
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int n = prices.length;
+        Integer[][] dp = new Integer[n][2];
+        dfs(prices, dp, 0, 1);
+        return dp[0][1];
+    }
+
+    private int dfs (int[] prices, Integer[][] dp, int idx, int canBuy) {
+        if (idx>=prices.length) return 0;
+        if (dp[idx][canBuy]!=null) return dp[idx][canBuy];
+
+        int profit = 0;
+        if (canBuy==1) {
+            int buy = -prices[idx] + dfs (prices, dp, idx+1, 0);
+            int skip = dfs (prices, dp, idx+1, 1);
+            profit = Math.max (buy, skip);
+        } else {
+            int sell = +prices[idx] + dfs (prices, dp, idx+2, 1);
+            int skip = dfs(prices, dp, idx+1, 0);
+            profit = Math.max (sell, skip);
+        }
+
+        return dp[idx][canBuy] = profit;
+    }
+}
+
+
+
+------------------------------------------------------
+LT 714 Best time to buy and sell stock with transaction fee
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/description/
+
+You are given an array prices where prices[i] is the price of a given stock on the ith day, and an integer fee representing a transaction fee.
+
+Find the maximum profit you can achieve. You may complete as many transactions as you like, but you need to pay the transaction fee for each transaction.
+
+Note:
+
+You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+The transaction fee is only charged once for each stock purchase and sale.
+
+
+Example 1:
+
+Input: prices = [1,3,2,8,4,9], fee = 2
+Output: 8
+Explanation: The maximum profit can be achieved by:
+- Buying at prices[0] = 1
+- Selling at prices[3] = 8
+- Buying at prices[4] = 4
+- Selling at prices[5] = 9
+The total profit is ((8 - 1) - 2) + ((9 - 4) - 2) = 8.
+Example 2:
+
+Input: prices = [1,3,7,5,10,3], fee = 3
+Output: 6
+
+
+Constraints:
+
+1 <= prices.length <= 5 * 104
+1 <= prices[i] < 5 * 104
+0 <= fee < 5 * 104
+
+
+
+class Solution {
+    public int maxProfit(int[] prices, int fee) {
+        int n = prices.length;
+        Integer[][] dp = new Integer[n][2];
+        dfs(prices, fee, dp, 0, 1);
+        return dp[0][1];
+    }
+
+    private int dfs (int[] prices, int fee, Integer[][] dp, int idx, int canBuy) {
+        if (idx==prices.length) return 0;
+        if (dp[idx][canBuy]!=null) return dp[idx][canBuy];
+
+        int profit = 0;
+        if (canBuy==1) {
+            int buy = -prices[idx] + dfs (prices, fee, dp, idx+1, 0);
+            int skip = dfs (prices, fee, dp, idx+1, 1);
+            profit = Math.max(buy, skip);
+        } else {
+            int sell = +prices[idx] + dfs (prices, fee, dp, idx + 1, 1) - fee;
+            int skip = dfs (prices, fee, dp, idx + 1, 0);
+            profit = Math.max (sell, skip);
+        }
+
+        return dp[idx][canBuy] = profit;
+    }
+}
+
+
+
+
+---------------------------------------------
+
+LT 62 Unique Paths
+https://leetcode.com/problems/unique-paths/description/
+
+There is a robot on an m x n grid. The robot is initially located at the top-left corner (i.e., grid[0][0]). The robot tries to move to the bottom-right corner (i.e., grid[m - 1][n - 1]). The robot can only move either down or right at any point in time.
+
+Given the two integers m and n, return the number of possible unique paths that the robot can take to reach the bottom-right corner.
+
+The test cases are generated so that the answer will be less than or equal to 2 * 109.
+
+
+
+Example 1:
+
+
+Input: m = 3, n = 7
+Output: 28
+Example 2:
+
+Input: m = 3, n = 2
+Output: 3
+Explanation: From the top-left corner, there are a total of 3 ways to reach the bottom-right corner:
+1. Right -> Down -> Down
+2. Down -> Down -> Right
+3. Down -> Right -> Down
+
+
+Constraints:
+
+1 <= m, n <= 100
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int[][] dp = new int[m][n];
+
+        // Step 1: Base Case - fill last row and last column with 1
+        for (int i = 0; i < m; i++) dp[i][n - 1] = 1;  // last column
+        for (int j = 0; j < n; j++) dp[m - 1][j] = 1;  // last row
+
+        // Step 2: Fill from bottom-right to top-left
+        for (int row = m - 2; row >= 0; row--) {
+            for (int col = n - 2; col >= 0; col--) {
+                dp[row][col] = dp[row + 1][col] + dp[row][col + 1];
+            }
+        }
+
+        return dp[0][0]; // Start from top-left
+    }
+}
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int[][] dp = new int[m][n];
+        for(int[] a : dp) Arrays.fill(a, -1);
+        return function(m,n,0,0,dp);
+    }
+
+    private int function(int m, int n, int row, int col, int[][] dp) {
+        if(row==m-1 && col==n-1) return 1;
+        if(row>=m || col>=n) return 0;
+        if(dp[row][col]!=-1) return dp[row][col];
+        return dp[row][col] = function(m,n,row,col+1,dp) + function(m,n,row+1,col,dp);
+    }
+}
+
+-----------------------------------------------------------------------
+
+
+LT 63 Unique Paths 2
+https://leetcode.com/problems/unique-paths-ii/description/
+
+
+
+You are given an m x n integer array grid. There is a robot initially located at the top-left corner (i.e., grid[0][0]). The robot tries to move to the bottom-right corner (i.e., grid[m - 1][n - 1]). The robot can only move either down or right at any point in time.
+
+An obstacle and space are marked as 1 or 0 respectively in grid. A path that the robot takes cannot include any square that is an obstacle.
+
+Return the number of possible unique paths that the robot can take to reach the bottom-right corner.
+
+The testcases are generated so that the answer will be less than or equal to 2 * 109.
+
+
+
+Example 1:
+
+
+Input: obstacleGrid = [[0,0,0],[0,1,0],[0,0,0]]
+Output: 2
+Explanation: There is one obstacle in the middle of the 3x3 grid above.
+There are two ways to reach the bottom-right corner:
+1. Right -> Right -> Down -> Down
+2. Down -> Down -> Right -> Right
+Example 2:
+
+
+Input: obstacleGrid = [[0,1],[0,0]]
+Output: 1
+
+
+Constraints:
+
+m == obstacleGrid.length
+n == obstacleGrid[i].length
+1 <= m, n <= 100
+obstacleGrid[i][j] is 0 or 1.
+
+Seen this question in a real interview before?
+1/6
+Yes
+No
+Accepted
+1,575,154/3.5M
+
+
+class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int m = obstacleGrid.length;
+        int n = obstacleGrid[0].length;
+
+        if(obstacleGrid[m-1][n-1]==1) return 0;
+
+        int[][] dp = new int[m][n];
+        for(int[] a : dp) Arrays.fill(a, -1);
+        return function(obstacleGrid,0, 0, dp);
+    }
+
+    private int function(int[][] obstacleGrid, int row, int col, int[][] dp) {
+        int m = obstacleGrid.length;
+        int n = obstacleGrid[0].length;
+
+        if (row == m - 1 && col == n - 1) return 1;
+        if (row >= m || col >= n) return 0;
+        if (dp[row][col] != -1) return dp[row][col];
+        if(obstacleGrid[row][col]==1) return 0;
+
+        return dp[row][col] = function(obstacleGrid, row, col + 1, dp) + function(obstacleGrid, row + 1, col, dp);
+    }
+}
+
+------------------------------
+LT 64 Minimum Path Sum
+https://leetcode.com/problems/minimum-path-sum/description/
+
+Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right, which minimizes the sum of all numbers along its path.
+
+Note: You can only move either down or right at any point in time.
+
+
+
+Example 1:
+
+
+Input: grid = [[1,3,1],[1,5,1],[4,2,1]]
+Output: 7
+Explanation: Because the path 1 → 3 → 1 → 1 → 1 minimizes the sum.
+Example 2:
+
+Input: grid = [[1,2,3],[4,5,6]]
+Output: 12
+
+
+Constraints:
+
+m == grid.length
+n == grid[i].length
+1 <= m, n <= 200
+0 <= grid[i][j] <= 200
+
+class Solution {
+    public int minPathSum(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+
+        int[][] dp = new int[n][m];
+        for (int[] a : dp) Arrays.fill(a, -1);
+        dfs(grid, dp, 0, 0);
+        // System.out.println(Arrays.deepToString(dp));
+        // for (int[] a : dp) {
+        //     System.out.println(Arrays.toString(a));
+        // }
+        return dp[0][0];
+    }
+
+    private int dfs (int[][] grid, int[][] dp, int row, int col) {
+        int n = grid.length;
+        int m = grid[0].length;
+
+        if (row>=n || col>=m) return Integer.MAX_VALUE;
+        if (row==n-1 && col==m-1) return dp[row][col] = grid[row][col];
+        if (dp[row][col]!=-1) return dp[row][col];
+
+        int val = grid[row][col];
+        int right =  dfs (grid, dp, row, col+1);
+        int down =  dfs (grid, dp, row+1, col);
+        return dp[row][col] = Math.min (right, down) + val;
+    }
+}
+
+

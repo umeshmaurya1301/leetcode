@@ -1,0 +1,405 @@
+LT 1155 Number of Dice Rolls With Target Sum
+
+https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/description/
+
+You have n dice, and each dice has k faces numbered from 1 to k.
+
+Given three integers n, k, and target, return the number of possible ways (out of the kn total ways) to roll the dice, so the sum of the face-up numbers equals target. Since the answer may be too large, return it modulo 109 + 7.
+
+
+
+Example 1:
+
+Input: n = 1, k = 6, target = 3
+Output: 1
+Explanation: You throw one die with 6 faces.
+There is only one way to get a sum of 3.
+Example 2:
+
+Input: n = 2, k = 6, target = 7
+Output: 6
+Explanation: You throw two dice, each with 6 faces.
+There are 6 ways to get a sum of 7: 1+6, 2+5, 3+4, 4+3, 5+2, 6+1.
+Example 3:
+
+Input: n = 30, k = 30, target = 500
+Output: 222616187
+Explanation: The answer must be returned modulo 109 + 7.
+
+
+Constraints:
+
+1 <= n, k <= 30
+1 <= target <= 1000
+
+
+class Solution {
+    private static final int MOD = 1000000007;
+
+    public int numRollsToTarget(int n, int k, int target) {
+        int[][] dp = new int[n][target+1];
+        for (int[] a : dp) Arrays.fill(a, -1);
+        dfs(k, dp, 0, target);
+        System.out.println(Arrays.deepToString(dp));
+        return dp[0][target];
+    }
+
+    private int dfs (int k, int[][] dp, int idx, int remain) {
+
+        if (idx==dp.length && remain != 0) return 0;
+        if (idx==dp.length && remain == 0) return 1;
+        if (dp[idx][remain] != -1) return dp[idx][remain];
+
+        int ways = 0;
+
+        for (int i=1; i<=k; i++) {
+            int newRemain = remain - i;
+            // System.out.println("Calling for newRemain: "+newRemain);
+            if (newRemain >= 0) {
+                int tempWays = (dfs (k, dp, idx + 1, newRemain))%MOD;
+                ways += tempWays;
+                ways %= MOD;
+            }
+        }
+
+        return dp[idx][remain] = ways;
+    }
+}
+
+
+
+
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+LT 416 Partition Equal Subset Sum
+
+https://leetcode.com/problems/partition-equal-subset-sum/description/
+
+Given an integer array nums, return true if you can partition the array into two subsets such that the sum of the elements in both subsets is equal or false otherwise.
+
+
+
+Example 1:
+
+Input: nums = [1,5,11,5]
+Output: true
+Explanation: The array can be partitioned as [1, 5, 5] and [11].
+Example 2:
+
+Input: nums = [1,2,3,5]
+Output: false
+Explanation: The array cannot be partitioned into equal sum subsets.
+
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int sum = 0;
+        for (int n : nums) sum += n;
+        if (sum%2!=0) return false;
+        int target = sum/2;
+        Boolean[][] dp = new Boolean[nums.length][target+1];
+
+        boolean ans = dfs(nums, dp, 0, target);
+        // System.out.println(Arrays.deepToString(dp));
+        return dp[0][target];
+        // return (boolean)dp[0][target];
+    }
+
+    private boolean dfs(int[] nums, Boolean[][] dp, int idx, int target) {
+        if (target==0) return true;
+        if (idx >= nums.length || target<0) return false;
+        if (dp[idx][target]!=null) return dp[idx][target];
+
+        boolean take = dfs(nums, dp, idx+1, target-nums[idx]);
+        boolean notTake = dfs(nums, dp, idx+1, target);
+        return dp[idx][target] = take || notTake;
+    }
+}
+
+
+
+
+
+-------------------------------------------
+-------------------------------------------
+
+LT_494 Target Sum
+https://leetcode.com/problems/target-sum/description/
+
+You are given an integer array nums and an integer target.
+
+You want to build an expression out of nums by adding one of the symbols '+' and '-' before each integer in nums and then concatenate all the integers.
+
+For example, if nums = [2, 1], you can add a '+' before 2 and a '-' before 1 and concatenate them to build the expression "+2-1".
+Return the number of different expressions that you can build, which evaluates to target.
+
+
+
+Example 1:
+
+Input: nums = [1,1,1,1,1], target = 3
+Output: 5
+Explanation: There are 5 ways to assign symbols to make the sum of nums be target 3.
+-1 + 1 + 1 + 1 + 1 = 3
++1 - 1 + 1 + 1 + 1 = 3
++1 + 1 - 1 + 1 + 1 = 3
++1 + 1 + 1 - 1 + 1 = 3
++1 + 1 + 1 + 1 - 1 = 3
+Example 2:
+
+Input: nums = [1], target = 1
+Output: 1
+
+
+Constraints:
+
+1 <= nums.length <= 20
+0 <= nums[i] <= 1000
+0 <= sum(nums[i]) <= 1000
+-1000 <= target <= 1000
+
+
+class Solution {
+    public int findTargetSumWays(int[] nums, int target) {
+        Map<String, Integer> dp = new HashMap<>();
+        return dfs(nums, dp, 0, target);
+
+    }
+
+    private int dfs(int[] nums, Map<String, Integer> dp, int idx, int curr) {
+        int len = nums.length;
+        if (curr==0 && idx==len) return 1;
+        if (idx>=nums.length) return 0;
+
+        String key = idx + "," + curr;
+        if(dp.containsKey(key)) return dp.get(key);
+
+        int plusWays = dfs(nums, dp, idx+1, curr - nums[idx]);
+        int minusWays = dfs(nums, dp, idx+1, curr + nums[idx]);
+        int ways = plusWays + minusWays;
+        dp.put(key, ways);
+        return ways;
+    }
+}
+
+
+---------------------------------------------------
+---------------------------------------------------
+
+LT 474 Ones and Zeroes
+https://leetcode.com/problems/ones-and-zeroes/description/
+
+
+You are given an array of binary strings strs and two integers m and n.
+
+Return the size of the largest subset of strs such that there are at most m 0's and n 1's in the subset.
+
+A set x is a subset of a set y if all elements of x are also elements of y.
+
+
+
+Example 1:
+
+Input: strs = ["10","0001","111001","1","0"], m = 5, n = 3
+Output: 4
+Explanation: The largest subset with at most 5 0's and 3 1's is {"10", "0001", "1", "0"}, so the answer is 4.
+Other valid but smaller subsets include {"0001", "1"} and {"10", "1", "0"}.
+{"111001"} is an invalid subset because it contains 4 1's, greater than the maximum of 3.
+Example 2:
+
+Input: strs = ["10","0","1"], m = 1, n = 1
+Output: 2
+Explanation: The largest subset is {"0", "1"}, so the answer is 2.
+
+
+Constraints:
+
+1 <= strs.length <= 600
+1 <= strs[i].length <= 100
+strs[i] consists only of digits '0' and '1'.
+1 <= m, n <= 100
+
+
+class Solution {
+
+    public int findMaxForm(String[] strs, int m, int n) {
+        Integer[][][] dp = new Integer[strs.length][m+1][n+1];
+        dfs(strs, dp, 0, m , n);
+        return dp[0][m][n];
+    }
+
+    private int dfs (String[] strs, Integer[][][] dp, int idx, int zeros, int ones) {
+        int len = strs.length;
+        if (zeros < 0 || ones < 0) return Integer.MIN_VALUE;
+        if (idx >= len) return 0;
+        if (dp[idx][zeros][ones] != null) return dp[idx][zeros][ones];
+
+        int[] zeroesOnes = getNumZeroesOnes(strs[idx]);
+        int take = 1 + dfs(strs, dp, idx + 1, zeros - zeroesOnes[0], ones - zeroesOnes[1]);
+        int notTake = dfs(strs, dp, idx+1, zeros, ones);
+        return dp[idx][zeros][ones] = Math.max(take, notTake);
+
+    }
+
+    private int[] getNumZeroesOnes(String str) {
+        int zeroes = 0;
+        int ones = 0;
+
+        for (char ch : str.toCharArray()) {
+            if (ch=='0') {
+                zeroes++;
+            } else {
+                ones++;
+            }
+        }
+
+        return new int[]{zeroes, ones};
+    }
+}
+
+
+
+-------------------------------------------
+-------------------------------------------
+
+LT_53 Maximum Subarray
+
+
+https://leetcode.com/problems/maximum-subarray/description/
+
+
+Given an integer array nums, find the subarray with the largest sum, and return its sum.
+
+
+
+Example 1:
+
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Output: 6
+Explanation: The subarray [4,-1,2,1] has the largest sum 6.
+Example 2:
+
+Input: nums = [1]
+Output: 1
+Explanation: The subarray [1] has the largest sum 1.
+Example 3:
+
+Input: nums = [5,4,-1,7,8]
+Output: 23
+Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
+
+
+Constraints:
+
+1 <= nums.length <= 105
+-104 <= nums[i] <= 104
+
+
+Follow up: If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
+
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int max = Integer.MIN_VALUE;
+        int sum = 0;
+        for(int n : nums) {
+            sum += n;
+            max = Math.max(sum, max);
+            if(sum<0) {
+                sum=0;
+            }
+        }
+        return max;
+    }
+}
+
+class Solution {
+
+    private static final int MAX = Integer.MAX_VALUE;
+
+    public int maxSubArray(int[] nums) {
+        int n = nums.length;
+        int[][] dp = new int[n][n];
+        for (int[] a : dp) Arrays.fill(a, MAX);
+        int max = Integer.MIN_VALUE;
+
+        for (int i=0; i<n; i++) {
+            for (int j=i; j<n; j++) {
+                int subArrSum = dfs (i, j, nums, dp);
+                if (subArrSum > max) {
+                    max = subArrSum;
+                }
+            }
+        }
+
+        return max;
+    }
+
+    private int dfs (int i, int j, int[] nums, int[][] dp) {
+        if (dp[i][j] != MAX) return dp[i][j];
+        int sum = 0;
+        for (int idx = i; idx<=j; idx++) sum += nums[idx];
+        return dp[i][j] = sum;
+    }
+}
+
+
+DFS will give TLE
+
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+LT 152 Maximum Product Subarray
+https://leetcode.com/problems/maximum-product-subarray/description/
+
+Given an integer array nums, find a subarray that has the largest product, and return the product.
+
+The test cases are generated so that the answer will fit in a 32-bit integer.
+
+Note that the product of an array with a single element is the value of that element.
+
+
+
+Example 1:
+
+Input: nums = [2,3,-2,4]
+Output: 6
+Explanation: [2,3] has the largest product 6.
+Example 2:
+
+Input: nums = [-2,0,-1]
+Output: 0
+Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
+
+
+Constraints:
+
+1 <= nums.length <= 2 * 104
+-10 <= nums[i] <= 10
+The product of any subarray of nums is guaranteed to fit in a 32-bit integer.
+
+class Solution {
+    public int maxProduct(int[] nums) {
+
+        int maxEnding = nums[0];
+        int minEnding = nums[0];
+        int answer = nums[0];
+
+        for (int i=1; i<nums.length; i++) {
+            int num = nums[i];
+
+            int tempMax = Math.max( num, Math.max (maxEnding*num, minEnding*num) );
+            int tempMin = Math.min( num, Math.min (maxEnding*num, minEnding*num) );
+
+            maxEnding = tempMax;
+            minEnding = tempMin;
+
+            answer = Math.max (answer, maxEnding);
+        }
+
+        return answer;
+    }
+}
+
+
+
+
