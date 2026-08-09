@@ -1,4 +1,29 @@
-// Minimum Lights To Illuminate A Road — https://leetcode.com/problems/minimum-lights-to-illuminate-a-road/
+/*
+ * 3964. Minimum Lights To Illuminate A Road — Medium
+ * https://leetcode.com/problems/minimum-lights-to-illuminate-a-road/
+ *
+ * You are given a 0-indexed integer array lights of length n. If lights[i] != 0, a working bulb exists at position i that illuminates every position in [max(0, i - lights[i]), min(n-1, i + lights[i])], inclusive. A position is visible if illuminated by at least one working bulb.
+ *
+ * You may install additional bulbs at any positions. Each additional bulb installed at position j illuminates [max(0, j-1), min(n-1, j+1)] (range = 1), inclusive.
+ *
+ * Return the minimum number of additional bulbs required to make every position on the road visible.
+ *
+ * Example 1:
+ *   Input:  lights = [0, 0, 0, 0]
+ *   Output: 2
+ *   Explanation: Place a bulb at index 1 (covers [0,2]) and index 3 (covers [2,3]). All 4 positions lit with 2 extra bulbs.
+ *
+ * Example 2:
+ *   Input:  lights = [0, 0, 0, 2, 0]
+ *   Output: 1
+ *   Explanation: Existing bulb at index 3 with range 2 covers [1,4]. Only index 0 is dark — one extra bulb at index 0 covers [0,1].
+ *
+ * Constraints:
+ *   1 <= lights.length <= 10^5
+ *   0 <= lights[i] <= 10^5
+ *
+ * Approach: Difference array + prefix sum to mark what is already lit, then a greedy left-to-right placement — O(n) time, O(n) space.
+ */
 package prefixsum;
 
 import java.util.*;

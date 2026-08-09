@@ -1,4 +1,30 @@
-// LT_1695_Maximum_Erasure_Value
+/*
+ * 1695. Maximum Erasure Value — Medium
+ * https://leetcode.com/problems/maximum-erasure-value/
+ *
+ * You are given an array of positive integers nums.
+ * You must erase exactly one subarray and return the maximum possible sum of elements in the erased subarray.
+ *
+ * A subarray is valid only if all its elements are unique.
+ *
+ * Example 1:
+ *   Input:  nums = [4,2,4,5,6]
+ *   Output: 17
+ *   Explanation:
+ *   Best subarray: [2,4,5,6] → sum = 17
+ *
+ * Example 2:
+ *   Input:  nums = [5,2,1,2,5,2,1,2,5]
+ *   Output: 8
+ *   Explanation:
+ *   Best unique subarray is [5,2,1] or [1,2,5] → sum = 8
+ *
+ * Constraints:
+ *   1 <= nums.length <= 10^5
+ *   1 <= nums[i] <= 10^4
+ *
+ * Approach: Sliding window over a last-index map, jumping left past the duplicate only when it lies inside the window — O(n) time, O(n) space.
+ */
 package prefixsum;
 
 import java.util.*;

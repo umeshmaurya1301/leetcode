@@ -4,11 +4,13 @@ Add one LeetCode solution as a standalone, compiling `.java` file under `src/<pa
 
 Every file also gets a `public static void main` that runs the solution against the problem's worked examples and prints the result next to what's expected — this is a personal reference project, not a submission target, so a runnable demo matters more than a bare solution.
 
+**Every file is self-explaining**: a block-comment header carries the problem statement, its examples, and its constraints (Step 6), so a `.java` file read on its own — in the IDE, on GitHub — never needs the Obsidian note next to it.
+
 **Solutions are filed by technique, and a solution that uses several techniques is copied into each one.** See Step 3. The copies are byte-identical apart from their `package` line, and `tools/gen_readme.py --check` enforces that.
 
 This command is invoked two ways:
 - **Standalone**, with the user pasting a LeetCode URL + Java solution directly.
-- **Cross-project sync from the Obsidian vault's `/solve` command**, which passes already-resolved metadata (problem id, title, difficulty, source URL, approach name, output filename base, and the example Input/Output/Explanation blocks already parsed from the note) alongside the Java code — skip straight to Step 2 in that case.
+- **Cross-project sync from the Obsidian vault's `/solve` command**, which passes already-resolved metadata (problem id, title, difficulty, source URL, output filename base, the problem description / examples / constraints already parsed for the note, and — per solution — its approach name and PascalCase label) alongside the Java code. Skip straight to Step 2 in that case, and run Steps 2–6.5 **once per solution**, since `/solve` may hand over several approaches for the same problem in one go.
 
 ---
 
@@ -21,7 +23,7 @@ From the user's URL and pasted code, derive the same identifiers `/solve` uses i
 - `difficulty` — Easy / Medium / Hard
 - `source` — full LeetCode URL
 - `base` — `LT_<zero-padded-4-digit-id>_<Title_With_Underscores>` (e.g. `LT_2401_Longest_Nice_SubArray`) — must match the corresponding note's filename (minus `.md`) in the Obsidian vault at `Tech/DSA/Questions/`, so if unsure, check that vault folder for the exact existing spelling before inventing your own.
-- **Examples** — the same worked examples that belong on the Obsidian note. If a note for this problem already exists at `Tech/DSA/Questions/<base>.md`, read its `## 🧪 Examples` section rather than asking the user again. Otherwise take them from the LeetCode page (WebFetch) or ask the user to paste them.
+- **Description, examples, constraints** — the same problem text that belongs on the Obsidian note; needed for both the file header (Step 6) and `main` (Step 6.5). If a note for this problem already exists at `Tech/DSA/Questions/<base>.md`, read its `## 📝 Problem Description`, `## 🧪 Examples`, and `## ⚠️ Constraints` sections rather than asking the user again. Otherwise take them from the LeetCode page (WebFetch) or ask the user to paste them.
 
 If the language pasted is not Java (e.g. Python), tell the user this project is Java-only and skip — do not write a file.
 
@@ -71,10 +73,11 @@ State the chosen packages to the user before writing.
 
 Check whether the problem already has files anywhere under `src/` (search all packages, not just one):
 
-- **No existing file** → this is the first solution. Target filename: `<className>.java`.
-- **Already exists** → a second approach is being added. Ask the user for a short approach label (e.g. `BinarySearch`, `Greedy`), then:
+- **No existing file, one solution being added** → target filename: `<className>.java`.
+- **No existing file, several solutions being added at once** (the usual `/solve` multi-approach case) → number them from the start: `<className>_1_<Label1>.java`, `<className>_2_<Label2>.java`, … in the order the approaches are meant to be read (naive first, optimal last), matching the `Solution N` order in the Obsidian note.
+- **Already exists** → a further approach is being added. Use the label `/solve` supplied, or — standalone — ask the user for a short PascalCase approach label (e.g. `BinarySearch`, `Greedy`), then:
   1. Rename **every copy** of the existing file to `<className>_1_<inferred-label>.java` (infer the label from its content/header comment if possible; otherwise ask), updating the class name inside each copy to match.
-  2. Write the new file as `<className>_2_<new-label>.java` into the packages chosen in Step 3 — which may differ from where approach 1 lives.
+  2. Write the new file as `<className>_<next-free-number>_<new-label>.java` into the packages chosen in Step 3 — which may differ from where the earlier approaches live.
 
 ---
 
@@ -89,23 +92,58 @@ Keep the class package-private (`class Foo`, not `public class Foo`) — that's 
 ## Step 6 — Write the file into every chosen package
 
 Content, in order:
-1. `// <title> — <source>` (one line)
+1. the **problem header block comment** (below)
 2. `package <pkg>;`
 3. blank line
 4. `import java.util.*;` (covers HashMap, ArrayList, Set, TreeMap, Deque, PriorityQueue, Collections, Comparator, etc. — everything these solutions have needed so far)
 5. blank line
 6. the renamed class body, copied exactly — never reformat or re-indent
 
+### The header block
+
+Every file states the problem it solves. Order: title line, URL, description, examples, constraints, approach. Keep the description to the problem's own wording, trimmed of LeetCode boilerplate ("Follow up:", images, ad copy); 2–8 lines is right. Include **every** example from the problem, and the constraints as given.
+
 ```java
-// Minimum Window Substring — https://leetcode.com/problems/minimum-window-substring/
+/*
+ * 2401. Longest Nice Subarray — Medium
+ * https://leetcode.com/problems/longest-nice-subarray/
+ *
+ * You are given an array nums consisting of positive integers. We call a subarray
+ * of nums nice if the bitwise AND of every pair of elements that are in different
+ * positions in the subarray is equal to 0.
+ * Return the length of the longest nice subarray.
+ *
+ * Example 1:
+ *   Input:  nums = [1,3,8,48,10]
+ *   Output: 3
+ *   Explanation: The longest nice subarray is [3,8,48] — 3 AND 8 = 0,
+ *                3 AND 48 = 0, 8 AND 48 = 0.
+ *
+ * Example 2:
+ *   Input:  nums = [3,1,5,11,13]
+ *   Output: 1
+ *
+ * Constraints:
+ *   1 <= nums.length <= 10^5
+ *   1 <= nums[i] <= 10^9
+ *
+ * Approach: Sliding Window + Bitmask — O(n) time, O(1) space.
+ */
 package slidingwindow;
 
 import java.util.*;
 
-class LT_0076_Minimum_Window_Substring {
+class LT_2401_Longest_Nice_SubArray {
 ```
 
-Write one copy to `src/<pkg>/<className>.java` for each package from Step 3. **Line 2 is the only line that may differ between copies** — everything else must be byte-identical, since `tools/gen_readme.py --check` compares them and fails on any other difference.
+Rules for the header:
+- Use `/* … */` with a leading ` * ` on every line — not `//`. If the problem text itself contains `*/`, rewrite that fragment (e.g. in backticks or spelled out) rather than breaking the comment.
+- The `Approach:` line describes **this file's** approach, so on a multi-approach problem each file gets its own line (`Approach 1: Brute force …`, `Approach 2: Sliding window …`) while the description/examples/constraints stay identical across them.
+- Write the header once per approach, then copy the finished file into its packages — don't retype it per package.
+- Every file under `src/` already carries this header — the older one-line `// <title> — <source>` form is gone, so match the block format above rather than reviving it. Editing a header means editing **all** of that file's copies together, or `--check` will fail.
+- Description, examples, and constraints are lifted from the problem's Obsidian note (`Tech/DSA/Questions/<base>.md`) — its `📝 Problem Description`, `🧪 Examples`, and `⚠️ Constraints` sections, de-markdowned (callout markers, `**bold**`, and backticks stripped). Take them from the note rather than re-typing from LeetCode, so the two stay in sync.
+
+Write one copy to `src/<pkg>/<className>.java` for each package from Step 3. **The `package` line is the only line that may differ between copies** — everything else must be byte-identical, since `tools/gen_readme.py --check` compares them and fails on any other difference.
 
 ---
 

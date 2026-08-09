@@ -1,4 +1,32 @@
-// Count Good Meals — https://leetcode.com/problems/count-good-meals/
+/*
+ * 1711. Count Good Meals — Medium
+ * https://leetcode.com/problems/count-good-meals/
+ *
+ * A good meal is a pair of food items whose deliciousness values sum to a power of two.
+ *
+ * Given an array deliciousness, return the number of different good meals.
+ *
+ * Since the answer can be very large, return it modulo 10^9 + 7.
+ *
+ * Example:
+ *   Input:  [1,3,5,7,9]
+ *   Output: 4
+ *
+ *   Explanation:
+ *   Good pairs are:
+ *
+ *   - (1,3) → 4
+ *   - (1,7) → 8
+ *   - (3,5) → 8
+ *   - (7,9) → 16
+ *
+ * Constraints:
+ *   1 ≤ deliciousness.length ≤ 10^5
+ *   0 ≤ deliciousness[i] ≤ 2^20
+ *   # 💡 Solutions
+ *
+ * Approach: For each item probe all 22 powers of two against a frequency map of items seen so far — O(22n) time, O(n) space.
+ */
 package hashing;
 
 import java.util.*;

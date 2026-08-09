@@ -1,4 +1,35 @@
-// Group Anagrams — https://leetcode.com/problems/group-anagrams/description/
+/*
+ * 49. Group Anagrams — Medium
+ * https://leetcode.com/problems/group-anagrams/description/
+ *
+ * Given an array of strings strs, group the anagrams together.
+ *
+ * Two strings are anagrams if they contain the same characters with the same frequencies, but the order of characters may differ.
+ *
+ * Return the grouped anagrams in any order.
+ *
+ * Example 1:
+ *   Input:  strs = ["eat","tea","tan","ate","nat","bat"]
+ *   Output: [["eat","tea","ate"],["tan","nat"],["bat"]]
+ *   Explanation: "eat", "tea", and "ate" are anagrams — sorted they all become "aet". Similarly "tan" and "nat" become "ant".
+ *
+ * Example 2:
+ *   Input:  strs = [""]
+ *   Output: [[""]]
+ *   Explanation: Empty string forms a single anagram group.
+ *
+ * Example 3:
+ *   Input:  strs = ["a"]
+ *   Output: [["a"]]
+ *   Explanation: Single character string forms one group.
+ *
+ * Constraints:
+ *   1 <= strs.length <= 10000
+ *   0 <= strs[i].length <= 100
+ *   strs[i] consists of lowercase English letters.
+ *
+ * Approach: Group in a HashMap keyed by the word's sorted characters — O(n * k log k) time, O(n * k) space.
+ */
 package hashing;
 
 import java.util.*;

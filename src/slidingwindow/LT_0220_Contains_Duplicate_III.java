@@ -1,4 +1,32 @@
-// Contains Duplicate III — https://leetcode.com/problems/contains-duplicate-iii/description/
+/*
+ * 220. Contains Duplicate III — Hard
+ * https://leetcode.com/problems/contains-duplicate-iii/description/
+ *
+ * Given an integer array nums and two integers indexDiff and valueDiff, return true if there exist two indices i and j such that:
+ * - i != j
+ * - abs(i - j) <= indexDiff
+ * - abs(nums[i] - nums[j]) <= valueDiff
+ *
+ * Return false otherwise.
+ *
+ * Example 1:
+ *   Input:  nums = [1,2,3,1], indexDiff = 3, valueDiff = 0
+ *   Output: true
+ *   Explanation: We can choose i = 0, j = 3. |0 - 3| = 3 <= 3 and |1 - 1| = 0 <= 0.
+ *
+ * Example 2:
+ *   Input:  nums = [1,5,9,1,5,9], indexDiff = 2, valueDiff = 3
+ *   Output: false
+ *   Explanation: No pair of indices satisfies both conditions simultaneously.
+ *
+ * Constraints:
+ *   2 <= nums.length <= 10^5
+ *   -10^9 <= nums[i] <= 10^9
+ *   1 <= indexDiff <= nums.length
+ *   0 <= valueDiff <= 10^9
+ *
+ * Approach: TreeSet holding the last indexDiff values; ceiling() finds a value within valueDiff — O(n log k) time, O(k) space.
+ */
 package slidingwindow;
 
 import java.util.*;

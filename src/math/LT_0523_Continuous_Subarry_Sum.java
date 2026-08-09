@@ -1,4 +1,26 @@
-// Continuous Subarray Sum — https://leetcode.com/problems/continuous-subarray-sum/
+/*
+ * 523. Continuous Subarray Sum — Medium
+ * https://leetcode.com/problems/continuous-subarray-sum/
+ *
+ * Given an integer array nums and an integer k, return true if the array has a continuous subarray of size at least 2 whose sum is a multiple of k.
+ *
+ * Example:
+ *   Input:  nums = [23,2,4,6,7], k = 6
+ *   Output: true
+ *   Explanation: [2,4] → sum = 6 (multiple of k)
+ *   Input:  nums = [23,2,6,4,7], k = 6
+ *   Output: true
+ *   Input:  nums = [23,2,6,4,7], k = 13
+ *   Output: false
+ *
+ * Constraints:
+ *   1 ≤ nums.length ≤ 10⁵
+ *   0 ≤ nums[i] ≤ 10⁹
+ *   0 ≤ sum(nums) ≤ 2³¹ - 1
+ *   1 ≤ k ≤ 2³¹ - 1
+ *
+ * Approach: Map each prefix-sum remainder to its first index; a repeat two apart means a valid subarray — O(n) time, O(min(n, k)) space.
+ */
 package math;
 
 import java.util.*;

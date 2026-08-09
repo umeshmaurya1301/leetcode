@@ -1,4 +1,25 @@
-// Count K-th Roots in a Range — https://leetcode.com/problems/count-k-th-roots-in-a-range/
+/*
+ * 3932. Count K-th Roots in a Range — Medium
+ * https://leetcode.com/problems/count-k-th-roots-in-a-range/
+ *
+ * Given three integers l, r, and k. An integer y is said to be a perfect k-th power if there exists an integer x such that y = x^k. Return the number of integers y in the range [l, r] (inclusive) that are perfect k-th powers.
+ *
+ * Example 1:
+ *   Input:  l = 1, r = 9, k = 3
+ *   Output: 2
+ *   Explanation: The perfect cubes in [1, 9] are 1 = 1³ and 8 = 2³.
+ *
+ * Example 2:
+ *   Input:  l = 8, r = 30, k = 2
+ *   Output: 3
+ *   Explanation: The perfect squares in [8, 30] are 9 = 3², 16 = 4², 25 = 5².
+ *
+ * Constraints:
+ *   0 <= l <= r <= 10^9
+ *   1 <= k <= 30
+ *
+ * Approach: Estimate the bounds with Math.pow, then correct them with exact integer powers — O(k) time, O(1) space.
+ */
 package math;
 
 import java.util.*;

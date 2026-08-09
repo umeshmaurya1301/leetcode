@@ -1,4 +1,42 @@
-// LRU Cache — https://leetcode.com/problems/lru-cache/
+/*
+ * 146. LRU Cache — Medium
+ * https://leetcode.com/problems/lru-cache/
+ *
+ * Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
+ *
+ * Implement the LRUCache class:
+ * - LRUCache(int capacity) — initialise the cache with positive size capacity.
+ * - int get(int key) — return the value of key if it exists, otherwise return -1.
+ * - void put(int key, int value) — update the value if key exists; otherwise insert the pair. If the cache exceeds capacity, evict the least recently used key.
+ *
+ * Both get and put must run in O(1) average time complexity.
+ *
+ * Example:
+ *   Input:
+ *   ["LRUCache","put","put","get","put","get","put","get","get","get"]
+ *   [[2],[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]
+ *   Output: [null, null, null, 1, null, -1, null, -1, 3, 4]
+ *
+ *   Explanation:
+ *   LRUCache(2)  → cache: {}
+ *   put(1, 1)    → cache: {1=1}
+ *   put(2, 2)    → cache: {1=1, 2=2}
+ *   get(1)       → 1        (1 promoted to MRU; cache: {2=2, 1=1})
+ *   put(3, 3)    → evicts 2 (LRU); cache: {1=1, 3=3}
+ *   get(2)       → -1       (evicted)
+ *   put(4, 4)    → evicts 1 (LRU); cache: {3=3, 4=4}
+ *   get(1)       → -1       (evicted)
+ *   get(3)       → 3
+ *   get(4)       → 4
+ *
+ * Constraints:
+ *   1 <= capacity <= 3000
+ *   0 <= key <= 10^4
+ *   0 <= value <= 10^5
+ *   At most 10^4 calls will be made to get and put.
+ *
+ * Approach: HashMap for lookup + doubly linked list with sentinel head/tail for recency — O(1) per get/put, O(capacity) space.
+ */
 package linkedlist;
 
 import java.util.*;

@@ -49,6 +49,7 @@ PROBLEMS = {
 300: ("Longest Increasing Subsequence", "Medium", "https://leetcode.com/problems/longest-increasing-subsequence/"),
 322: ("Coin Change", "Medium", "https://leetcode.com/problems/coin-change/"),
 354: ("Russian Doll Envelopes", "Hard", "https://leetcode.com/problems/russian-doll-envelopes/"),
+376: ("Wiggle Subsequence", "Medium", "https://leetcode.com/problems/wiggle-subsequence/"),
 377: ("Combination Sum IV", "Medium", "https://leetcode.com/problems/combination-sum-iv/description/"),
 435: ("Non-overlapping Intervals", "Medium", "https://leetcode.com/problems/non-overlapping-intervals/"),
 454: ("4Sum II", "Medium", "https://leetcode.com/problems/4sum-ii/description/"),

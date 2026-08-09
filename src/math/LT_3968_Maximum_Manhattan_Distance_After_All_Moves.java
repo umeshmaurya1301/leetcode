@@ -1,4 +1,32 @@
-// Maximum Manhattan Distance After All Moves — https://leetcode.com/problems/maximum-manhattan-distance-after-all-moves/
+/*
+ * 3968. Maximum Manhattan Distance After All Moves — Easy
+ * https://leetcode.com/problems/maximum-manhattan-distance-after-all-moves/
+ *
+ * You are given a string moves consisting of characters 'U', 'D', 'L', 'R', and '_'. Starting at the origin (0, 0):
+ * - 'U' moves up 1 unit (y++)
+ * - 'D' moves down 1 unit (y--)
+ * - 'L' moves left 1 unit (x--)
+ * - 'R' moves right 1 unit (x++)
+ * - '_' is a wildcard — you choose any one of the four directions
+ *
+ * Return the maximum Manhattan distance |x| + |y| achievable after performing all moves optimally.
+ *
+ * Example 1:
+ *   Input:  moves = "L_D_"
+ *   Output: 4
+ *   Explanation: Replace the two _s with 'D' and 'L' respectively. Path reaches (-2, -2), giving distance 2 + 2 = 4.
+ *
+ * Example 2:
+ *   Input:  moves = "U_R"
+ *   Output: 3
+ *   Explanation: Replace _ with 'U'. Path reaches (1, 2), giving distance 1 + 2 = 3.
+ *
+ * Constraints:
+ *   1 <= moves.length <= 10^5
+ *   moves consists only of 'U', 'D', 'L', 'R', '_'
+ *
+ * Approach: Single pass for the net displacement, then spend every wildcard outward — O(n) time, O(1) space.
+ */
 package math;
 
 import java.util.*;
