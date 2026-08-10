@@ -1,0 +1,498 @@
+LT120 Triangle
+
+https://leetcode.com/problems/triangle/description/
+
+Given a triangle array, return the minimum path sum from top to bottom.
+
+For each step, you may move to an adjacent number of the row below. More formally, if you are on index i on the current row, you may move to either index i or index i + 1 on the next row.
+
+
+
+Example 1:
+
+Input: triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]
+Output: 11
+Explanation: The triangle looks like:
+   2
+  3 4
+ 6 5 7
+4 1 8 3
+The minimum path sum from top to bottom is 2 + 3 + 5 + 1 = 11 (underlined above).
+Example 2:
+
+Input: triangle = [[-10]]
+Output: -10
+
+
+Constraints:
+
+1 <= triangle.length <= 200
+triangle[0].length == 1
+triangle[i].length == triangle[i - 1].length + 1
+-104 <= triangle[i][j] <= 104
+
+
+ class Solution {
+     public int minimumTotal(List<List<Integer>> triangle) {
+         int[][] memo = new int[triangle.size()][triangle.size()];
+         for (int[] row : memo) Arrays.fill(row, Integer.MAX_VALUE);
+         return dfs(triangle, 0, 0, memo);
+     }
+
+     private int dfs(List<List<Integer>> triangle, int i, int j, int[][] memo) {
+         if (i == triangle.size() - 1) return triangle.get(i).get(j);
+         if (memo[i][j] != Integer.MAX_VALUE) return memo[i][j];
+
+         int down = dfs(triangle, i + 1, j, memo);
+         int diag = dfs(triangle, i + 1, j + 1, memo);
+
+         memo[i][j] = triangle.get(i).get(j) + Math.min(down, diag);
+         return memo[i][j];
+     }
+ }
+
+ -----------------------------------------------------------------------------
+ LT 221 Maximal Square
+ https://leetcode.com/problems/maximal-square/description/
+
+Given an m x n binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.
+
+
+
+Example 1:
+
+
+Input: matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
+Output: 4
+Example 2:
+
+
+Input: matrix = [["0","1"],["1","0"]]
+Output: 1
+Example 3:
+
+Input: matrix = [["0"]]
+Output: 0
+
+
+Constraints:
+
+m == matrix.length
+n == matrix[i].length
+1 <= m, n <= 300
+matrix[i][j] is '0' or '1'.
+
+
+class Solution {
+    private static final int[][] DIR = new int[][]{{0,1},{1,1},{1,0} };
+
+    public int maximalSquare(char[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        int[][] memo = new int[m][n];
+        for (int[] a : memo) Arrays.fill(a, -1);
+
+        for (int i=0; i<m; i++) {
+            for (int j=0; j<n; j++) {
+                function(matrix, memo, i, j);
+            }
+        }
+
+        int max = 0;
+        System.out.println(Arrays.deepToString(memo));
+        for (int[] a : memo) {
+            for (int d : a) {
+                max = Math.max (max, d*d);
+            }
+        }
+
+        return max;
+    }
+
+    private int function (char[][] matrix, int[][] memo, int row, int col) {
+        if (row>=matrix.length || col>=matrix[0].length) return 0;
+        if (matrix[row][col]=='0') return memo[row][col] = 0;
+        if (memo[row][col] != -1) return memo[row][col];
+
+        int min = Integer.MAX_VALUE;
+        for (int[] dir : DIR) {
+            int newRow = row + dir[0];
+            int newCol = col + dir[1];
+            min = Math.min (min, function(matrix, memo, newRow, newCol));
+        }
+        return memo[row][col] = min==Integer.MAX_VALUE ? 0 : min + 1;
+    }
+}
+
+
+
+-----------------------------------------------------------------------
+LT 174 Dungeon Game
+https://leetcode.com/problems/dungeon-game/description/
+
+The demons had captured the princess and imprisoned her in the bottom-right corner of a dungeon. The dungeon consists of m x n rooms laid out in a 2D grid. Our valiant knight was initially positioned in the top-left room and must fight his way through dungeon to rescue the princess.
+
+The knight has an initial health point represented by a positive integer. If at any point his health point drops to 0 or below, he dies immediately.
+
+Some of the rooms are guarded by demons (represented by negative integers), so the knight loses health upon entering these rooms; other rooms are either empty (represented as 0) or contain magic orbs that increase the knight's health (represented by positive integers).
+
+To reach the princess as quickly as possible, the knight decides to move only rightward or downward in each step.
+
+Return the knight's minimum initial health so that he can rescue the princess.
+
+Note that any room can contain threats or power-ups, even the first room the knight enters and the bottom-right room where the princess is imprisoned.
+
+
+
+Example 1:
+
+
+Input: dungeon = [[-2,-3,3],[-5,-10,1],[10,30,-5]]
+Output: 7
+Explanation: The initial health of the knight must be at least 7 if he follows the optimal path: RIGHT-> RIGHT -> DOWN -> DOWN.
+Example 2:
+
+Input: dungeon = [[0]]
+Output: 1
+
+
+Constraints:
+
+m == dungeon.length
+n == dungeon[i].length
+1 <= m, n <= 200
+-1000 <= dungeon[i][j] <= 1000
+
+
+class Solution {
+    public int calculateMinimumHP(int[][] dungeon) {
+        int m = dungeon.length;
+        int n = dungeon[0].length;
+
+        int[][] memo = new int[m][n];
+        int lastVal = dungeon[m-1][n-1];
+        if (lastVal<0) {
+            memo[m-1][n-1] = -1 * lastVal + 1;
+        } else {
+            memo[m-1][n-1] = 1;
+        }
+
+        for (int i=n-2; i>=0; i--) {
+            if (dungeon[m-1][i] >= memo[m-1][i+1]) {
+                memo[m-1][i] = 1;
+            } else {
+                memo[m-1][i] = memo[m-1][i+1] - dungeon[m-1][i];
+            }
+        }
+
+        for (int i=m-2; i>=0; i--) {
+            if (dungeon[i][n-1] >= memo[i+1][n-1]) {
+                memo[i][n-1] = 1;
+            } else {
+                memo[i][n-1] = memo[i+1][n-1] - dungeon[i][n-1];
+            }
+        }
+
+        for (int i=m-2; i>=0; i--) {
+            for (int j=n-2; j>=0; j--) {
+                int val = Math.min (memo[i+1][j], memo[i][j+1]);
+                memo[i][j] = Math.max(1, val - dungeon[i][j]);
+            }
+        }
+
+        System.out.println(Arrays.deepToString(memo));
+        return memo[0][0];
+    }
+}
+
+
+------------------------------------------------------------
+LT 1483 Cherry Pickup 2
+https://leetcode.com/problems/cherry-pickup-ii/description/
+You are given a rows x cols matrix grid representing a field of cherries where grid[i][j] represents the number of cherries that you can collect from the (i, j) cell.
+
+You have two robots that can collect cherries for you:
+
+Robot #1 is located at the top-left corner (0, 0), and
+Robot #2 is located at the top-right corner (0, cols - 1).
+Return the maximum number of cherries collection using both robots by following the rules below:
+
+From a cell (i, j), robots can move to cell (i + 1, j - 1), (i + 1, j), or (i + 1, j + 1).
+When any robot passes through a cell, It picks up all cherries, and the cell becomes an empty cell.
+When both robots stay in the same cell, only one takes the cherries.
+Both robots cannot move outside of the grid at any moment.
+Both robots should reach the bottom row in grid.
+
+
+Example 1:
+
+
+Input: grid = [[3,1,1],[2,5,1],[1,5,5],[2,1,1]]
+Output: 24
+Explanation: Path of robot #1 and #2 are described in color green and blue respectively.
+Cherries taken by Robot #1, (3 + 2 + 5 + 2) = 12.
+Cherries taken by Robot #2, (1 + 5 + 5 + 1) = 12.
+Total of cherries: 12 + 12 = 24.
+Example 2:
+
+
+Input: grid = [[1,0,0,0,0,0,1],[2,0,0,0,0,3,0],[2,0,9,0,0,0,0],[0,3,0,5,4,0,0],[1,0,2,3,0,0,6]]
+Output: 28
+Explanation: Path of robot #1 and #2 are described in color green and blue respectively.
+Cherries taken by Robot #1, (1 + 9 + 5 + 2) = 17.
+Cherries taken by Robot #2, (1 + 3 + 4 + 3) = 11.
+Total of cherries: 17 + 11 = 28.
+
+
+Constraints:
+
+rows == grid.length
+cols == grid[i].length
+2 <= rows, cols <= 70
+0 <= grid[i][j] <= 100
+
+
+class Solution {
+
+    private static final int[] DIR = {-1, 0, 1};
+
+    public int cherryPickup(int[][] grid) {
+
+        int m = grid.length;
+        int n = grid[0].length;
+
+        Integer[][][] memo = new Integer[m][n][n];
+
+        return dfs(grid, 0, 0, n - 1, memo);
+    }
+
+    private int dfs(int[][] grid, int row, int c1, int c2,
+                    Integer[][][] memo) {
+
+        int m = grid.length;
+        int n = grid[0].length;
+
+        if (c1 < 0 || c1 >= n || c2 < 0 || c2 >= n)
+            return Integer.MIN_VALUE;
+
+        if (row == m - 1) {
+            if (c1 == c2) return grid[row][c1];
+            return grid[row][c1] + grid[row][c2];
+        }
+
+        if (memo[row][c1][c2] != null) return memo[row][c1][c2];
+
+        int current;
+
+        if (c1 == c2)
+            current = grid[row][c1];
+        else
+            current = grid[row][c1] + grid[row][c2];
+
+        int best = Integer.MIN_VALUE;
+
+        // 3 × 3 = 9 possible moves
+        for (int d1 : DIR) {
+            for (int d2 : DIR) {
+                best = Math.max(best,dfs(grid, row + 1, c1 + d1, c2 + d2, memo) );
+            }
+        }
+
+        return memo[row][c1][c2] = current + best;
+    }
+}
+
+
+
+------------------------------------------------
+LT 300 Longest Increasing Subsequence
+https://leetcode.com/problems/longest-increasing-subsequence/description/
+
+Given an integer array nums, return the length of the longest strictly increasing subsequence.
+
+
+
+Example 1:
+
+Input: nums = [10,9,2,5,3,7,101,18]
+Output: 4
+Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.
+Example 2:
+
+Input: nums = [0,1,0,3,2,3]
+Output: 4
+Example 3:
+
+Input: nums = [7,7,7,7,7,7,7]
+Output: 1
+
+
+Constraints:
+
+1 <= nums.length <= 2500
+-104 <= nums[i] <= 104
+
+
+Follow up: Can you come up with an algorithm that runs in O(n log(n)) time complexity?
+
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        int len = nums.length;
+        int[] dp = new int[len];
+
+        for (int i=0; i<len; i++) {
+            dp[i] = 1;
+            for (int j=0; j<i; j++) {
+                if (nums[i] > nums[j]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+        }
+
+        return Arrays.stream(dp).max().orElse(0);
+    }
+}
+
+
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        int len = nums.length;
+        int[][] dp = new int[len][len+1];
+
+        for (int[] a : dp) Arrays.fill(a, -1);
+
+        dfs(nums, dp, 0, -1);
+        // for (int i=0 ; i<len; i++) {
+            // System.out.println(Arrays.toString(dp[i]));
+        // }
+        // System.out.println(Arrays.deepToString(dp));
+        return dp[0][0];
+    }
+
+    private int dfs (int[] nums, int[][] dp, int curr, int prev) {
+        int len = nums.length;
+        if (curr==len) return 0;
+        if (dp[curr][prev+1] != -1) return dp[curr][prev+1];
+
+        int take = (prev==-1 || nums[curr] > nums[prev]) ? (1+dfs(nums, dp, curr+1, curr)) : dfs(nums, dp, curr+1, prev) ;
+        int skip = dfs (nums, dp, curr+1, prev);
+        return dp[curr][prev+1] = Math.max(take, skip);
+    }
+}
+
+
+
+
+
+
+------------------------------------------
+LT 673 Number of Longest Increasing Subsequence
+https://leetcode.com/problems/number-of-longest-increasing-subsequence/description/
+
+Given an integer array nums, return the number of longest increasing subsequences.
+
+Notice that the sequence has to be strictly increasing.
+
+
+
+Example 1:
+
+Input: nums = [1,3,5,4,7]
+Output: 2
+Explanation: The two longest increasing subsequences are [1, 3, 4, 7] and [1, 3, 5, 7].
+Example 2:
+
+Input: nums = [2,2,2,2,2]
+Output: 5
+Explanation: The length of the longest increasing subsequence is 1, and there are 5 increasing subsequences of length 1, so output 5.
+
+
+Constraints:
+
+1 <= nums.length <= 2000
+-106 <= nums[i] <= 106
+The answer is guaranteed to fit inside a 32-bit integer.
+
+class Solution {
+    public int findNumberOfLIS(int[] nums) {
+
+        int len = nums.length;
+        int[] length = new int[len];
+        int[] count = new int[len];
+
+        Arrays.fill(length, 1);
+        Arrays.fill(count, 1);
+
+        int maxLen = 1;
+
+        for (int i=0; i<len; i++) {
+
+            for (int j=0; j<i; j++) {
+
+                if (nums[i] > nums[j]) {
+
+                    if (length[j] + 1 > length[i]) {
+
+                        length[i] = length[j] + 1;
+                        count[i] = count[j];
+
+                    } else if (length[j] + 1 == length[i]) {
+                        count[i] += count[j];
+                    }
+
+                }
+
+            }
+            maxLen = Math.max(maxLen, length[i]);
+        }
+
+        int ans = 0;
+        for (int i=0; i<len; i++) {
+            if (length[i]==maxLen) ans += count[i];
+        }
+
+        return ans;
+
+    }
+}
+
+class Solution {
+
+    public int findNumberOfLIS(int[] nums) {
+        int len = nums.length;
+        int[] length = new int[len];
+        int[] count = new int[len];
+
+        Arrays.fill(length, 1);
+        Arrays.fill(count, 1);
+
+        int maxLen = 1;
+        for (int i=0; i<len; i++) {
+            for (int j=0; j<i; j++) {
+                if (nums[i] > nums[j]) {
+
+                    if (length[i] < length[j]+1) {
+                        length[i] = length[j] + 1;
+                        count[i] = count[j];
+                    } else if (length[j]+1==length[i]) {
+                        count[i] += count[j];
+                    }
+
+                }
+            }
+            maxLen = Math.max(maxLen, length[i]);
+        }
+
+        int ct = 0;
+        for (int i=0; i<len; i++) {
+            if (length[i] == maxLen) ct += count[i];
+        }
+
+        System.out.println(maxLen);
+        System.out.println(Arrays.toString(length));
+        System.out.println(Arrays.toString(count));
+        return ct;
+    }
+}
+

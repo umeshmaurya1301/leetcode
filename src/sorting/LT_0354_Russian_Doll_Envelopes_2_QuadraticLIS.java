@@ -25,13 +25,16 @@
  *   envelopes[i].length == 2
  *   1 <= wi, hi <= 10^5
  *
- * Approach: Sort by width ascending / height descending, then LIS by binary search over heights — O(n log n) time, O(n) space.
+ * Approach 2: Same sort, but the textbook O(n^2) pairwise LIS over heights instead of the binary
+ *             search one. Correct, but TLE on LeetCode at n = 10^5 (~5e9 comparisons) — kept
+ *             because it isolates the lesson that the sort is the insight while the LIS engine
+ *             decides whether the solution passes — O(n^2) time, O(n) space.
  */
 package sorting;
 
 import java.util.*;
 
-class LT_0354_Russian_Doll_Envelopes {
+class LT_0354_Russian_Doll_Envelopes_2_QuadraticLIS {
     public int maxEnvelopes(int[][] envelopes) {
         /*
         1  4
@@ -57,35 +60,24 @@ class LT_0354_Russian_Doll_Envelopes {
 
     private int lis (int[][] nums) {
         int row = nums.length;
-        int col = nums[0].length;
-        List<Integer> tail = new ArrayList<>();
+        int col = nums[0].length;;
+
+        int[] dp = new int[row];
 
         for (int i=0; i<row; i++) {
-            int num = nums[i][col-1];
-            int left = 0;
-            int right = tail.size();
-
-            while (left < right) {
-                int mid = left + (right - left)/2;
-                if (tail.get(mid) < num) {
-                    left = mid + 1;
-                } else {
-                    right = mid;
+            dp[i] = 1;
+            for (int j=0; j<i; j++) {
+                if (nums[i][col-1] > nums[j][col-1]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
                 }
-            }
-
-            if (left==tail.size()) {
-                tail.add(num);
-            } else {
-                tail.set(left, num);
             }
         }
 
-        return tail.size();
+        return Arrays.stream(dp).max().orElse(0);
     }
 
     public static void main(String[] args) {
-        LT_0354_Russian_Doll_Envelopes sol = new LT_0354_Russian_Doll_Envelopes();
+        LT_0354_Russian_Doll_Envelopes_2_QuadraticLIS sol = new LT_0354_Russian_Doll_Envelopes_2_QuadraticLIS();
         System.out.println(sol.maxEnvelopes(new int[][]{{5, 4}, {6, 4}, {6, 7}, {2, 3}})); // expected: 3
         System.out.println(sol.maxEnvelopes(new int[][]{{1, 1}, {1, 1}, {1, 1}})); // expected: 1
     }

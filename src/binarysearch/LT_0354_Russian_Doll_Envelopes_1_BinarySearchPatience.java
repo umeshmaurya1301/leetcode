@@ -25,13 +25,13 @@
  *   envelopes[i].length == 2
  *   1 <= wi, hi <= 10^5
  *
- * Approach: Sort by width ascending / height descending, then LIS by binary search over heights — O(n log n) time, O(n) space.
+ * Approach 1: Sort by width ascending / height descending, then LIS by binary search over heights — O(n log n) time, O(n) space.
  */
-package dynamicprogramming;
+package binarysearch;
 
 import java.util.*;
 
-class LT_0354_Russian_Doll_Envelopes {
+class LT_0354_Russian_Doll_Envelopes_1_BinarySearchPatience {
     public int maxEnvelopes(int[][] envelopes) {
         /*
         1  4
@@ -85,7 +85,7 @@ class LT_0354_Russian_Doll_Envelopes {
     }
 
     public static void main(String[] args) {
-        LT_0354_Russian_Doll_Envelopes sol = new LT_0354_Russian_Doll_Envelopes();
+        LT_0354_Russian_Doll_Envelopes_1_BinarySearchPatience sol = new LT_0354_Russian_Doll_Envelopes_1_BinarySearchPatience();
         System.out.println(sol.maxEnvelopes(new int[][]{{5, 4}, {6, 4}, {6, 7}, {2, 3}})); // expected: 3
         System.out.println(sol.maxEnvelopes(new int[][]{{1, 1}, {1, 1}, {1, 1}})); // expected: 1
     }
